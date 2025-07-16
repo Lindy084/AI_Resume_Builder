@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Resume Builder – Lindiwe</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #d1c4e9, #ede7f6);
+      padding: 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-top: 6px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 16px;
+      padding: 10px 20px;
+      background-color: #6a1b9a;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #7e30bf;
+    }
+    .export-buttons {
+      margin-top: 20px;
+      display: flex;
+      gap: 20px;
+    }
+    #output {
+      background: white;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      color: black;
+      min-height: 150px;
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>💼 AI Resume Builder</h1>
+    <form id="resumeForm">
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" required placeholder="" />
+
+      <label for="title">Career Title:</label>
+      <input type="text" id="title" required placeholder="" />
+
+      <label for="skills">Skills (comma-separated):</label>
+      <input type="text" id="skills" required placeholder="" />
+
+      <label for="education">Education:</label>
+      <textarea id="education" required placeholder=" – – "></textarea>
+
+      <label for="experience">Experience (optional):</label>
+      <textarea id="experience" placeholder="Built AI Resume Builder, Sentiment Dashboard..."></textarea>
+
+      <label for="template">Select Template:</label>
+      <select id="template">
+        <option value="template1">✨ Modern</option>
+        <option value="template2">📄 Classic</option>
+        <option value="template3">🎨 Creative</option>
+      </select>
+
+      <button type="submit">🚀 Generate Resume</button>
+    </form>
+
+    <div id="output" style="display:none;"></div>
+
+    <div class="export-buttons">
+      <!-- Removed PDF button -->
+      <button id="downloadWordBtn">📝 Download Word</button>
+    </div>
+  </div>
+
+  <!-- only Word download library needed -->
+  <script src="https://cdn.jsdelivr.net/npm/docx@7.2.0/build/index.min.js"></script>
+
+  <script>
+    const { Document, Packer, Paragraph, TextRun } = docx;
+
+    const form = document.getElementById("resumeForm");
+    const output = document.getElementById("output");
+
+    let resumeData = null;
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const title = document.getElementById("title").value.trim();
+      const skills = document.getElementById("skills").value.trim();
+      const education = document.getElementById("education").value.trim();
+      const experience = document.getElementById("experience").value.trim() || "Hands-on projects in AI, dashboards, and automation.";
+      const template = document.getElementById("template").value;
+
+      resumeData = { name, title, skills, education, experience, template };
+
+      let html = "";
+
+      if (template === "template1") {
+        html = `
+          <h2 style="color:#5e35b1;">${name}</h2>
+          <h3>${title}</h3>
+          <p><strong>Skills:</strong> ${skills}</p>
+          <p><strong>Education:</strong><br>${education}</p>
+          <p><strong>Experience:</strong><br>${experience}</p>
+        `;
+      } else if (template === "template2") {
+        html = `
+          <h1 style="border-bottom: 2px solid #333;">${name}</h1>
+          <h2>${title}</h2>
+          <p><strong>Skills:</strong> ${skills}</p>
+          <p><strong>Education:</strong> ${education}</p>
+          <p><strong>Experience:</strong> ${experience}</p>
+        `;
+      } else {
+        html = `
+          <div style="background:#f3e5f5; padding:15px; border-radius:10px;">
+            <h2 style="color:#6a1b9a;">👩🏽‍💻 ${name}</h2>
+            <h3>🎯 ${title}</h3>
+            <p><strong>🎨 Skills:</strong> ${skills}</p>
+            <p><strong>🎓 Education:</strong><br>${education}</p>
+            <p><strong>💼 Experience:</strong><br>${experience}</p>
+          </div>
+        `;
+      }
+
+      output.innerHTML = html;
+      output.style.display = "block";
+    });
+
+    document.getElementById("downloadWordBtn").addEventListener("click", () => {
+      if (!resumeData) {
+        alert("Please generate your resume first.");
+        return;
+      }
+
+      const doc = new Document({
+        sections: [
+          {
+            properties: {},
+            children: [
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: resumeData.name,
+                    bold: true,
+                    size: 48,
+                    color: "5e35b1",
+                  }),
+                ],
+              }),
+              new Paragraph({
+                text: resumeData.title,
+                spacing: { after: 300 },
+                bold: true,
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({ text: "Skills:", bold: true, break: 1 }),
+                  new TextRun(` ${resumeData.skills}`),
+                ],
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({ text: "Education:", bold: true, break: 1 }),
+                  new TextRun(` ${resumeData.education}`),
+                ],
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({ text: "Experience:", bold: true, break: 1 }),
+                  new TextRun(` ${resumeData.experience}`),
+                ],
+              }),
+            ],
+          },
+        ],
+      });
+
+      Packer.toBlob(doc).then((blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const anchor = document.createElement("a");
+        anchor.href = url;
+        anchor.download = "Lindiwe_Resume.docx";
+        anchor.click();
+        window.URL.revokeObjectURL(url);
+      });
+    });
+  </script>
+</body>
+</html>
