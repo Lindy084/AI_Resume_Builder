@@ -26,9 +26,7 @@ We currently **support Word (.docx)** download only because:
 3. Click Generate Resume.
 4. Download your resume as a `.docx` file instantly!
 
-### 🚀 Live Demo
-
-🔗 Coming soon at: `https://your-vercel-url.vercel.app`
+### 🚀 Live Demo(https://vercel.com/lindiwe-ndlazis-projects/ai-resume-builder-e419)
 
 ### 👩🏽‍💻 Built With
 
