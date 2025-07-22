@@ -23,7 +23,7 @@ We currently **support Word (.docx)** download only because:
 
 1. Fill in your resume information.
 2. Select a template.
-3. Click Generate Resume.
+3. Click Generate Resume
 4. Download your resume as a `.docx` file instantly!
 
 ### 🚀 Live Demo(https://ai-resume-builder-e419.vercel.app/)
