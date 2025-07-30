@@ -4,18 +4,18 @@ Build professional, personalized resumes in seconds using this AI-powered tool �
 
 ### 🎯 Features
 
-* 🧠 **AI-Generated Resume Templates** – Choose from 3 beautifully styled templates: Modern, Classic, and Creative.
-* ✍️ **Editable Form** – Fill in your name, skills, education, and experience.
-* 📝 **Instant Resume Generation** – See your resume preview in real-time as you type.
-* 📄 **Download as Word (.docx)** – Export your resume in a professional Word format that you can edit, style, or upload to any job platform.
+* 🧠 AI-Generated Resume Templates – Choose from 3 beautifully styled templates: Modern, Classic, and Creative.
+* ✍️ Editable Form – Fill in your name, skills, education, and experience.
+* 📝 Instant Resume Generation – See your resume preview in real-time as you type.
+* 📄 Download as Word (.docx) – Export your resume in a professional Word format that you can edit, style, or upload to any job platform.
 
 ### ❓ Why Word Only?
 
-We currently **support Word (.docx)** download only because:
+We currently support Word (.docx) download only because:
 
 * 📝 Word resumes are widely accepted by HR tools and job sites.
 * 🧩 Exporting to PDF had layout issues across devices and didn't render correctly in some browsers.
-* ✅ Word generation ensures **consistent formatting** and lets you edit after downloading.
+* ✅ Word generation ensures consistent formatting and lets you edit after downloading.
 
 > ⚠️ PDF support may be added later with full cross-browser compatibility.
 
